@@ -3,6 +3,10 @@ package it.polito.tdp.artsmia;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import org.jgrapht.Graph;
+import org.jgrapht.graph.DefaultWeightedEdge;
+
+import it.polito.tdp.artsmia.model.Artista;
 import it.polito.tdp.artsmia.model.Model;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -31,7 +35,7 @@ public class ArtsmiaController {
     private Button btnCalcolaPercorso;
 
     @FXML
-    private ComboBox<?> boxRuolo;
+    private ComboBox<String> boxRuolo;
 
     @FXML
     private TextField txtArtista;
@@ -54,11 +58,33 @@ public class ArtsmiaController {
     @FXML
     void doCreaGrafo(ActionEvent event) {
     	txtResult.clear();
-    	txtResult.appendText("Crea grafo");
-    }
+    	txtResult.appendText("Crea grafo\n");
+    	
+    	if(this.boxRuolo.getValue()== null ) {
+    		this.txtResult.appendText("DEVI SELEZIONARE UN RUOLO !!!\n");
+    	}
+    	else{
+    		model.creaGrafo(this.boxRuolo.getValue());
+    		
+   		 
+   		// for(Artista a : model.creaGrafo(this.boxRuolo.getValue()).vertexSet()) {
+   		//	 this.txtResult.appendText(a.getNome()+"\n");
+   		 
+    	
+    	   }
+   		
+    	}
+    	
+    
 
     public void setModel(Model model) {
     	this.model = model;
+    	
+    	//POPOLO QUI IL MENU
+    	
+    	this.boxRuolo.getItems().addAll(model.getListRole());
+    	
+    	
     }
 
     
